@@ -1,4 +1,4 @@
-import { toPascalCase } from "../utils/manipulation";
+import { toPascalCase } from "../utils/manipulation.js";
 
 export default function (plop) {
   plop.setHelper('PascalCase', function(text) {
