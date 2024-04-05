@@ -19,8 +19,10 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^9.1.0",
+    "handlebars": "^4.7.8",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "plop": "^4.0.1",
     "prettier": "^3.2.5"
   },
   "scripts": {
@@ -30,7 +32,8 @@
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "precommit": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "plop": "plop --plopfile 'dev-utils/plop/plopfile.js'"
   },
   "eslintConfig": {
     "extends": [
@@ -55,5 +58,6 @@
       "npm run lint",
       "npm run format"
     ]
-  }
+  },
+  "type": "module"
 }
