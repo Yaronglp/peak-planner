@@ -1,6 +1,7 @@
 import { JSONObject, Transitions } from "./types"
+import { isEmptyObject } from "./utils"
 
-class Machine<S, TransitionsType extends Transitions<S>> {
+export class Machine<S, TransitionsType extends Transitions<S>> {
   #state: keyof S
   #transitions: TransitionsType
 
@@ -10,20 +11,32 @@ class Machine<S, TransitionsType extends Transitions<S>> {
   }
 
   changeState(newState: keyof S): void {
+    if (isEmptyObject(this.#transitions)) {
+      return
+    }
+
     // We are assuming the feature allows to assign new state only if the state exists on the transitions
     if (this.#transitions[newState]) {
       this.#state = newState
     }
   }
 
-  dispatch(actionName: keyof TransitionsType[keyof S], payload: JSONObject) {
+  dispatch(actionName: keyof TransitionsType[keyof S], payload: JSONObject): void {
     const transitionActions = this.#transitions[this.getState()]
-    const actionFN = transitionActions && transitionActions[actionName]
+    const stateInStr = this.getState().toString()
 
-    if (actionFN) {
+    if (isEmptyObject(transitionActions as unknown as JSONObject)) {
+      console.warn(`No actions defined for '${stateInStr}'-state`)
+      return
+    }
+
+    const actionFN = transitionActions![actionName]
+
+    if (typeof actionFN === "function") {
       actionFN(payload)
     } else {
-      //TODO: What should I do in case no action exists
+      console.warn(`Action '${actionName.toString()}' was not found in '${stateInStr}'-state`)
+      return
     }
   }
 

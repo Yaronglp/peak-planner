@@ -5,7 +5,7 @@ export type JSONObject<T = any> = {
 export type ActionFN<TPayload = JSONObject> = (payload: TPayload) => void
 
 export type Transitions<S = any, T = JSONObject> = {
-  [stateName in keyof S]: {
+  [stateName in keyof S]?: {
     [actionName: string]: ActionFN<T>
   }
 }
