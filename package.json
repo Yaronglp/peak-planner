@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint src/**/*.ts dev-utils/**/*.js",
-    "format": "prettier --write src/**/*.{tsx,ts} dev-utils/**/*.js",
+    "format": "prettier --write src/**/*.{tsx,ts} dev-utils/**/*.js src/**/*.spec.ts",
     "precommit": "lint-staged",
     "prepare": "husky",
     "plop": "plop --plopfile 'dev-utils/plop/plopfile.js'"
