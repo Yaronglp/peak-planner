@@ -1,7 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -29,18 +25,33 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# Specs
+### UI Design (High Level):
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![alt text](assets/image.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features:
+1. <b><u>Theme</u></b> - Support Dark & Light mode.
+2. <b><u>Profile</u></b> - Dialog with the profile data.
+3. <b><u>View Tasks</u></b> - Table presenting the list items.
+4. <b><u>Create/Edit/Delete task</u></b> - Form dialog to create/edit or delete tasks(can use Formik or React Hook Form).
+5. <b><u></u></b>
+6. <b><u>Task Prioritization</u></b> - High, Medium, Low priority.
+7. <b><u>Categories/Tags</u></b> - By categorized or tags tasks, the list will be organized for the user and allow filters and sorts.
+8. <b><u>Search</u></b> - Implement search tasks with debounce.
+9. <b><u>Persistence</u></b> - The ability to save tasks and load it later.
+10. <b><u>Visual Feedback</u></b> - Animations and visual effects on specific tasks like completed or due date.
+11. <b><u>Accessibility</u></b> - Support accessibility by keyboard navigation and screen readers.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Future tasks:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Filter - Filter out specific tasks.
+- [ ] Virtualization/Pagination - In case of multiple items(Intersection Observer/x-page header). 
+- [ ] Offline mode functionality- In case of an offline mode, save data into local storage such as LS/SS/IndexedDB and save it for later
+- [ ] Live update - Polling/SSE/Websocket to get update when other users are changing tasks.
+- [ ] Mentions - Ability to add mentions in tasks and to inform other users.
+- [ ] Notifications - Send emails on collaborations or changes by tags or assignee changes for tasks - can be achieved by Mailchimp or any other vendor.
+- [ ] Permission system - capability to implement roles like Admin, Editor, Viewer
+- [ ] Comments - Ability to write comments on tasks, for collaborations, discussion and clarifications.
+- [ ] Multiple Items - Capability to check more than one task and perform action like delete, change prioritization etc.
