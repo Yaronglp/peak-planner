@@ -19,6 +19,7 @@
     ],
     "rules": {
         "prettier/prettier": "error",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }]
     }
 }
