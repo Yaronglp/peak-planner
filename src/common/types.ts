@@ -9,5 +9,3 @@ export interface PPAccessibility {
   "aria-describedby"?: string
   "aria-expanded"?: string
 }
-
-export type ThemeColor = "light" | "dark"
