@@ -21,6 +21,7 @@
         "no-console": ["warn", { "allow": ["warn", "error"] }],
         "prettier/prettier": "error",
         "react/react-in-jsx-scope": "off",
-        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }]
+        "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }],
+        "no-empty-function": "off"
     }
 }
