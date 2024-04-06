@@ -46,6 +46,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Future tasks:
 
+- [ ] Extract FSM into a different package.
 - [ ] Filter - Filter out specific tasks.
 - [ ] Virtualization/Pagination - In case of multiple items(Intersection Observer/x-page header). 
 - [ ] Offline mode functionality- In case of an offline mode, save data into local storage such as LS/SS/IndexedDB and save it for later
@@ -55,3 +56,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - [ ] Permission system - capability to implement roles like Admin, Editor, Viewer
 - [ ] Comments - Ability to write comments on tasks, for collaborations, discussion and clarifications.
 - [ ] Multiple Items - Capability to check more than one task and perform action like delete, change prioritization etc.
+- [ ] Support i18n for multiple language
