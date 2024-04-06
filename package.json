@@ -34,12 +34,14 @@
     "test": "react-scripts test",
     "lint": "eslint src/**/*.ts dev-utils/**/*.js",
     "format": "eslint --fix src/*.{ts,tsx} src/**/*.{ts,tsx} dev-utils/**/*.js src/**/*.spec.ts src/**/*.hook.ts",
+    "pretty": "prettier --write src/**/*.{ts,tsx}",
     "precommit": "lint-staged",
     "prepare": "husky",
     "plop": "plop --plopfile 'dev-utils/plop/plopfile.js'"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
+      "npm run pretty",
       "npm run lint"
     ]
   },
