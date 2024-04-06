@@ -5,7 +5,7 @@ import Button from "../../../common/components/Button/Button"
 export interface ProfileProps extends PPCustomAttributes, PPAccessibility {}
 
 const Profile: FC<ProfileProps> = ({}) => {
-  return <Button label="Profile" />
+  return <div>Profile</div>
 }
 
 export default Profile
