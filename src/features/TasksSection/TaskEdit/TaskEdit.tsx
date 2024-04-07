@@ -2,12 +2,14 @@ import { FC, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import Button from "../../../common/components/Button/Button"
 import Modal from "../../../common/components/Modal/Modal"
-import { Task } from "../TasksSection.types"
 import TaskForm from "../TaskForm/TaskForm"
+import { Task } from "../TasksSection.types"
 
-export interface TaskCreateProps extends PPCustomAttributes, PPAccessibility {}
+export interface TaskEditProps extends PPCustomAttributes, PPAccessibility {
+  task: Task
+}
 
-const TaskCreate: FC<TaskCreateProps> = ({}) => {
+const TaskEdit: FC<TaskEditProps> = ({ task }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleOnClick = () => {
@@ -20,16 +22,16 @@ const TaskCreate: FC<TaskCreateProps> = ({}) => {
 
   return (
     <>
-      <Button label="Create New Task" onClick={handleOnClick} />
+      <Button label="Edit" onClick={handleOnClick} />
       <Modal
         isOpen={isModalOpen}
-        title="Create New Task"
+        title={`Edit '${task.title}'`}
         footer={null}
         onCancelClick={() => setIsModalOpen((open) => !open)}>
-        <TaskForm onSubmit={onSubmitHandler} />
+        <TaskForm task={task} onSubmit={onSubmitHandler} />
       </Modal>
     </>
   )
 }
 
-export default TaskCreate
+export default TaskEdit

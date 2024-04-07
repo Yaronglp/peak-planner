@@ -1,12 +1,11 @@
 import { FC } from "react"
-import { PPAccessibility, PPCustomAttributes } from "../../../../common/types"
+import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import { useForm, Controller } from "react-hook-form"
-import { Priority, Task } from "../../TasksSection.types"
-import Input from "../../../../common/components/Input/Input"
-import Button from "../../../../common/components/Button/Button"
+import { Priority, Task } from "../TasksSection.types"
+import Input from "../../../common/components/Input/Input"
+import Button from "../../../common/components/Button/Button"
 import { StyledForm } from "./styles"
-import { toPascalCase } from "../../../../common/utils"
-import Select from "../../../../common/components/Select/Select"
+import Select from "../../../common/components/Select/Select"
 
 export interface FormProps extends PPCustomAttributes, PPAccessibility {
   onSubmit: (data: Omit<Task, "id">) => void
@@ -26,9 +25,9 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: "",
-      description: "",
-      priority: Priority.LOW,
+      title: task?.title || "",
+      description: task?.description || "",
+      priority: task?.priority || Priority.LOW,
     },
   })
 
@@ -46,7 +45,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         render={({ field }) => (
           <Input
             controlProp={field}
-            label={{ text: toPascalCase("title") }}
+            label={{ text: "Title" }}
             placeHolder="title..."
             error={errors.title && { text: "This field is required" }}
           />
@@ -59,7 +58,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         render={({ field }) => (
           <Input
             controlProp={field}
-            label={{ text: toPascalCase("description") }}
+            label={{ text: "Description" }}
             placeHolder="description..."
             error={errors.description && { text: "This field is required" }}
           />
@@ -72,14 +71,14 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         render={({ field }) => (
           <Select
             controlProp={field}
-            label={{ text: toPascalCase("priority") }}
+            label={{ text: "Priority" }}
             options={PriorityOptions}
             defaultValue={Priority.LOW}
             error={errors.priority && { text: "This field is required" }}
           />
         )}
       />
-      <Button type={Button.Type.SUBMIT} label={task ? "Update" : "Create"} />
+      <Button type={Button.Type.SUBMIT} label="Save" />
     </StyledForm>
   )
 }
