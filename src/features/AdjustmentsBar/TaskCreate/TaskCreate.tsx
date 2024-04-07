@@ -2,7 +2,8 @@ import { FC, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import Button from "../../../common/components/Button/Button"
 import Modal from "../../../common/components/Modal/Modal"
-import TaskForm from "../Form/TaskForm"
+import TaskForm from "./Form/TaskForm"
+import { Task } from "../../Tasks/Tasks.types"
 
 export interface TaskCreateProps extends PPCustomAttributes, PPAccessibility {}
 
@@ -13,6 +14,10 @@ const TaskCreate: FC<TaskCreateProps> = ({}) => {
     setIsModalOpen((modal) => !modal)
   }
 
+  const onSubmitHandler = (data: Omit<Task, "id">): void => {
+    console.log(JSON.stringify(data))
+  }
+
   return (
     <>
       <Button label="+" onClick={handleOnClick} />
@@ -21,7 +26,7 @@ const TaskCreate: FC<TaskCreateProps> = ({}) => {
         title="Create New Task"
         footer={null}
         onCancelClick={() => setIsModalOpen((open) => !open)}>
-        <TaskForm />
+        <TaskForm onSubmit={onSubmitHandler} />
       </Modal>
     </>
   )
