@@ -1,17 +1,27 @@
 import { FC, MouseEventHandler } from "react"
-import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
+import { PPAccessibility, PPCustomAttributes } from "../../types"
+import { StyledButton } from "./styles"
 
+enum Type {
+  SUBMIT = "submit",
+  BUTTON = "button",
+}
 export interface ButtonProps extends PPCustomAttributes, PPAccessibility {
   label: string
-  onClick: MouseEventHandler<HTMLButtonElement>
+  type?: Type
+  onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-const Button: FC<ButtonProps> = ({ label, "aria-label": ariaLabel, onClick }) => {
+const Button: FC<ButtonProps> = ({ type = Type.BUTTON, label, "aria-label": ariaLabel = label, onClick }) => {
   return (
-    <button aria-label={ariaLabel} type="button" onClick={onClick}>
+    <StyledButton aria-label={ariaLabel} onClick={onClick} htmlType={type}>
       {label}
-    </button>
+    </StyledButton>
   )
 }
 
-export default Button
+export default Object.assign(Button, {
+  Type,
+}) as unknown as typeof Button & {
+  Type: typeof Type
+}
