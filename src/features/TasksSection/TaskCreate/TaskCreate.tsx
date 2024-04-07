@@ -2,8 +2,8 @@ import { FC, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import Button from "../../../common/components/Button/Button"
 import Modal from "../../../common/components/Modal/Modal"
-import TaskForm from "./Form/TaskForm"
-import { Task } from "../../Tasks/Tasks.types"
+import TaskForm from "./TaskForm/TaskForm"
+import { Task } from "../TasksSection.types"
 import { toPascalCase } from "../../../common/utils"
 
 export interface TaskCreateProps extends PPCustomAttributes, PPAccessibility {}

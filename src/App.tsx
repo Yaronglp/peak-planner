@@ -1,13 +1,11 @@
-import AdjustmentsBar from "./features/AdjustmentsBar/AdjustmentsBar"
 import Header from "./features/Header/Header"
-import Tasks from "./features/Tasks/Tasks"
+import Tasks from "./features/TasksSection/TasksSection"
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        <AdjustmentsBar />
         <Tasks />
       </main>
     </>
