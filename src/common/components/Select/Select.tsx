@@ -1,7 +1,6 @@
 import { FC } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../types"
-import { Input as InputAntD } from "antd"
-import { ErrorLabel } from "./Styles"
+import { ErrorLabel, StyledLabel, StyledSelect } from "./Styles"
 
 // Label is prop to allow overload parameters in one place instead of manage multiple props
 // In the future can add label position: up, left, right, down
@@ -14,23 +13,23 @@ type Error = {
   text: string
 }
 
-export interface InputProps extends PPCustomAttributes, PPAccessibility {
-  isRequired?: boolean
-  placeHolder?: string
+export interface SelectProps extends PPCustomAttributes, PPAccessibility {
+  options: { value: string; label: string }[]
+  defaultValue?: string
   label?: Label
   error?: Error
   // Should be optimized and consume as interface
   controlProp?: any
 }
 
-const Input: FC<InputProps> = ({ isRequired = false, placeHolder, label, error, controlProp }) => {
+const Select: FC<SelectProps> = ({ options, defaultValue, label, error, controlProp }) => {
   return (
     <div>
-      {label && Object.keys(label).length > 0 && <label>{label.text}</label>}
-      <InputAntD placeholder={placeHolder} required={isRequired} {...controlProp} />
+      {label && Object.keys(label).length > 0 && <StyledLabel>{label.text}</StyledLabel>}
+      <StyledSelect options={options} defaultValue={defaultValue} {...controlProp} />
       {error && Object.keys(error).length > 0 && <ErrorLabel>{error.text}</ErrorLabel>}
     </div>
   )
 }
 
-export default Input
+export default Select

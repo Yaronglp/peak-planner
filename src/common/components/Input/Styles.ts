@@ -1,6 +1,6 @@
 import styled from "styled-components"
+import { cssErrorLabel } from "../../styles"
 
 export const ErrorLabel = styled.label`
-  color: var(--red);
-  font-weight: bold;
+  ${cssErrorLabel}
 `
