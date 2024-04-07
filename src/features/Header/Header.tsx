@@ -1,9 +1,7 @@
 import { FC, ReactNode } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../common/types"
 import { APP_NAME } from "../../common/constants"
-import { StyledHeader } from "./styles"
-import ThemeToggle from "./ThemeToggle/ThemeToggle"
-import Profile from "./Profile/Profile"
+import { StyledHeader, StyledTitle } from "./styles"
 
 export interface HeaderProps extends PPCustomAttributes, PPAccessibility {
   children?: ReactNode
@@ -12,9 +10,7 @@ export interface HeaderProps extends PPCustomAttributes, PPAccessibility {
 const Header: FC<HeaderProps> = ({}) => {
   return (
     <StyledHeader>
-      <ThemeToggle />
-      <h1>{APP_NAME}</h1>
-      <Profile />
+      <StyledTitle>{APP_NAME}</StyledTitle>
     </StyledHeader>
   )
 }
