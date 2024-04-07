@@ -55,7 +55,7 @@ export default function (plop) {
         },
         {
           type: "add",
-          path: `${basePath}/features/{{PascalCase name}}/{{PascalCase name}}.hook.ts`,
+          path: `${basePath}/features/{{PascalCase name}}/{{PascalCase name}}.hooks.ts`,
           templateFile: "templates/hooks.hbs",
         },
         {

@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import Button from "../../../common/components/Button/Button"
-import { Theme, useTheme } from "./ThemeToggle.hook"
+import { Theme, useTheme } from "./ThemeToggle.hooks"
 
 export interface ThemeToggleProps extends PPCustomAttributes, PPAccessibility {}
 
