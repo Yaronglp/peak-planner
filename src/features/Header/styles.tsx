@@ -5,7 +5,6 @@ export const StyledHeader = styled.header`
   ${cssFlexCenter};
   ${cssBoxShadow};
   justify-content: space-between;
-  flex: 1;
   padding: 1rem;
 `
 

@@ -7,7 +7,7 @@ export const cssFlexCenter = css`
 `
 
 export const cssBoxShadow = css`
-  box-shadow: 0 0 4px var(--color-font);
+  box-shadow: 0 0 4px var(--black);
 `
 
 export const cssErrorLabel = css`

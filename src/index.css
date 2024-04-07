@@ -1,17 +1,13 @@
-[data-theme="light"] {
-  --color-background: #ffffff;
-  --color-font: #000000;
-}
-
-[data-theme="dark"] {
-  --color-background: #000000;
-  --color-font: #ffffff;
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --red: #d30d4c;
 }
 
 body {
   margin: 0;
-  background-color: var(--color-background);
-  color: var(--color-font);
+  background-color: var(--white);
+  color: var(--black);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
