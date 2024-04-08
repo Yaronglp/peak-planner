@@ -17,4 +17,6 @@ export const StyledHeader = styled.header`
 
 export const StyledTitle = styled.h1`
   margin: 0 auto;
+  font-family: serif;
+  letter-spacing: 0.2rem;
 `

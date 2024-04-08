@@ -67,13 +67,13 @@ export const editTask = async (task: Omit<Task, "id">) => {
   }
 }
 
-export const deleteTask = async () => {
+export const deleteTask = async (taskID: string) => {
   const options = {
     method: Method.DELETE,
   }
 
   try {
-    const response = await fetch(`${API_URL}/tasks`, options)
+    const response = await fetch(`${API_URL}/tasks/${taskID}`, options)
 
     if (!response.ok) {
       throw Error(`API: delete task error.\nStatus: ${response.status}`)
@@ -82,7 +82,7 @@ export const deleteTask = async () => {
     return await response.json()
   } catch (e: unknown) {
     if (e instanceof Error) {
-      console.error(`Something went wrong while delete a task.\n${e.message}`)
+      console.error(`Something went wrong while deleting a task.\n${e.message}`)
     }
   }
 }

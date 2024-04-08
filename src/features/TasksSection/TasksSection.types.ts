@@ -11,7 +11,7 @@ export enum Status {
 }
 
 export type Task = {
-  id: number
+  id: string
   title: string
   description: string
   priority: Priority

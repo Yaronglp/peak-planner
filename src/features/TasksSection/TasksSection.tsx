@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../common/types"
-import { TableAdjustments, StyledTable } from "./styles"
+import { TableAdjustments, StyledTable, StyledActions } from "./styles"
 import TaskCreate from "./TaskCreate/TaskCreate"
 import TaskEdit from "./TaskEdit/TaskEdit"
 import { Priority, Status, Task } from "./TasksSection.types"
 import { TableColumnsType, Tag } from "antd"
 import SearchInput from "./SearchInput/SearchInput"
-import { getTasks } from "../../services/api"
+import { createTask, deleteTask, getTasks } from "../../services/api"
+import Button from "../../common/components/Button/Button"
 
 const STATUS_TO_COLOR_MAP = {
   [Status.TODO]: "#7FC7D9",
@@ -47,7 +48,18 @@ const columns: TableColumnsType<Task> = [
     title: "Actions",
     dataIndex: "Actions",
     key: "Actions",
-    render: (text: string, record: Task) => <TaskEdit task={record} />,
+    render: (text: string, record: Task) => (
+      <StyledActions>
+        <TaskEdit task={record} />
+        <Button
+          label="Delete"
+          onClick={async (e) => {
+            const deletedItem: Task = await deleteTask(record.id)
+            console.warn(`${deletedItem.title} was deleted.`)
+          }}
+        />
+      </StyledActions>
+    ),
   },
 ]
 
@@ -62,8 +74,11 @@ const TasksSection: FC<TasksProps> = ({}) => {
     setTasksToPresent(tasks.filter((task: Task) => (task[byType] as string).toLowerCase().includes(txt.toLowerCase())))
   }
 
-  const onTaskCreate = (data: Omit<Task, "id">): void => {
-    console.log(data)
+  const onTaskCreate = async (taskData: Omit<Task, "id">) => {
+    const createdTask = await createTask(taskData)
+    const newTasks = [...tasks, createdTask]
+    setTasksToPresent(newTasks)
+    setTasks(newTasks)
   }
 
   useEffect(() => {

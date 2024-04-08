@@ -13,3 +13,8 @@ export const StyledTable = styled(Table)`
   margin: 0 auto;
   ${cssBoxShadow};
 `
+
+export const StyledActions = styled.div`
+  ${cssFlexCenter};
+  justify-content: space-around;
+`
