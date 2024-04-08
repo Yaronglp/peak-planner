@@ -11,6 +11,7 @@
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
     "antd": "^5.16.1",
+    "json-server": "^1.0.0-alpha.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.2",
@@ -31,6 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:server": "json-server --watch src/db/db.json --port 3001",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint src/**/*.ts dev-utils/**/*.js",
