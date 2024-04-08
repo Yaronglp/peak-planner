@@ -9,3 +9,7 @@ export interface PPAccessibility {
   "aria-describedby"?: string
   "aria-expanded"?: string
 }
+
+export type JSONObject<T = any> = {
+  [key: string]: T
+}
