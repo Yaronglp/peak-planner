@@ -25,6 +25,11 @@ const columns: TableColumnsType<Task> = [
     key: "priority",
   },
   {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+  },
+  {
     title: "Actions",
     dataIndex: "Actions",
     key: "Actions",

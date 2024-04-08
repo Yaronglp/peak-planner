@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import { useForm, Controller } from "react-hook-form"
-import { Priority, Task } from "../TasksSection.types"
+import { Priority, Status, Task } from "../TasksSection.types"
 import Input from "../../../common/components/Input/Input"
 import Button from "../../../common/components/Button/Button"
 import { StyledForm } from "./styles"
@@ -17,6 +17,11 @@ const PriorityOptions: { value: string; label: string }[] = Object.values(Priori
   label: priority,
 }))
 
+const StatusOptions: { value: string; label: string }[] = Object.values(Status).map((status) => ({
+  value: status,
+  label: status,
+}))
+
 const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
   const {
     control,
@@ -28,6 +33,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
       title: task?.title || "",
       description: task?.description || "",
       priority: task?.priority || Priority.LOW,
+      status: task?.status || Status.TODO,
     },
   })
 
@@ -75,6 +81,20 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
             options={PriorityOptions}
             defaultValue={Priority.LOW}
             error={errors.priority && { text: "This field is required" }}
+          />
+        )}
+      />
+      <Controller
+        name="status"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => (
+          <Select
+            controlProp={field}
+            label={{ text: "Priority" }}
+            options={StatusOptions}
+            defaultValue={Status.TODO}
+            error={errors.status && { text: "This field is required" }}
           />
         )}
       />
