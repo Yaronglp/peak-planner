@@ -5,9 +5,11 @@ import Modal from "../../../common/components/Modal/Modal"
 import { Task } from "../TasksSection.types"
 import TaskForm from "../TaskForm/TaskForm"
 
-export interface TaskCreateProps extends PPCustomAttributes, PPAccessibility {}
+export interface TaskCreateProps extends PPCustomAttributes, PPAccessibility {
+  onCreate: (data: Omit<Task, "id">) => void
+}
 
-const TaskCreate: FC<TaskCreateProps> = ({}) => {
+const TaskCreate: FC<TaskCreateProps> = ({ onCreate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleOnClick = () => {
@@ -15,7 +17,7 @@ const TaskCreate: FC<TaskCreateProps> = ({}) => {
   }
 
   const onSubmitHandler = (data: Omit<Task, "id">): void => {
-    console.log(JSON.stringify(data))
+    onCreate(data)
   }
 
   return (
@@ -25,7 +27,7 @@ const TaskCreate: FC<TaskCreateProps> = ({}) => {
         isOpen={isModalOpen}
         title="Create New Task"
         footer={null}
-        onCancelClick={() => setIsModalOpen((open) => !open)}>
+        onCancelClick={(cb: any) => setIsModalOpen((open) => !open)}>
         <TaskForm onSubmit={onSubmitHandler} />
       </Modal>
     </>

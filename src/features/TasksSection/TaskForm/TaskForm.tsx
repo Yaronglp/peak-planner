@@ -43,6 +43,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
     <StyledForm
       onSubmit={handleSubmit((data) => {
         onSubmit(data as Omit<Task, "id">)
+        reset()
       })}>
       <Controller
         name="title"

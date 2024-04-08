@@ -1,12 +1,12 @@
 import Header from "./features/Header/Header"
-import Tasks from "./features/TasksSection/TasksSection"
+import TasksSection from "./features/TasksSection/TasksSection"
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        <Tasks />
+        <TasksSection />
       </main>
     </>
   )

@@ -1,11 +1,12 @@
 import { FC } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../common/types"
-import { StyledSection, StyledTable } from "./styles"
+import { TableAdjustments, StyledTable } from "./styles"
 import { TASKS } from "./mock"
 import TaskCreate from "./TaskCreate/TaskCreate"
 import TaskEdit from "./TaskEdit/TaskEdit"
 import { Task } from "./TasksSection.types"
 import { TableColumnsType } from "antd"
+import SearchInput from "./SearchInput/SearchInput"
 
 const dataSource = [...TASKS]
 const columns: TableColumnsType<Task> = [
@@ -39,15 +40,24 @@ const columns: TableColumnsType<Task> = [
 
 export interface TasksProps extends PPCustomAttributes, PPAccessibility {}
 
-const Tasks: FC<TasksProps> = ({}) => {
+const TasksSection: FC<TasksProps> = ({}) => {
+  const onSearchChange = (txt: string) => {
+    console.log(txt)
+  }
+
+  const onTaskCreate = (data: Omit<Task, "id">): void => {
+    console.log(data)
+  }
+
   return (
     <>
-      <StyledSection>
-        <TaskCreate />
-      </StyledSection>
+      <TableAdjustments>
+        <SearchInput onInputChange={onSearchChange} />
+        <TaskCreate onCreate={onTaskCreate} />
+      </TableAdjustments>
       <StyledTable dataSource={dataSource} columns={columns as any} />
     </>
   )
 }
 
-export default Tasks
+export default TasksSection
