@@ -1,12 +1,12 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../common/types"
 import { TableAdjustments, StyledTable } from "./styles"
-import { TASKS } from "./mock"
 import TaskCreate from "./TaskCreate/TaskCreate"
 import TaskEdit from "./TaskEdit/TaskEdit"
 import { Priority, Status, Task } from "./TasksSection.types"
 import { TableColumnsType, Tag } from "antd"
 import SearchInput from "./SearchInput/SearchInput"
+import { getTasks } from "../../services/api"
 
 const STATUS_TO_COLOR_MAP = {
   [Status.TODO]: "#7FC7D9",
@@ -20,7 +20,6 @@ const PRIORITY_TO_COLOR_MAP = {
   [Priority.HIGH]: "#D04848",
 }
 
-const dataSource = [...TASKS]
 const columns: TableColumnsType<Task> = [
   {
     title: "Title",
@@ -55,13 +54,28 @@ const columns: TableColumnsType<Task> = [
 export interface TasksProps extends PPCustomAttributes, PPAccessibility {}
 
 const TasksSection: FC<TasksProps> = ({}) => {
-  const onSearchChange = (txt: string) => {
-    console.log(txt)
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasksToPresent, setTasksToPresent] = useState<Task[]>([])
+
+  const onSearchChange = (txt: string, byType: keyof Task) => {
+    // There is a casting to string as the byType is supporting only string types currently
+    setTasksToPresent(tasks.filter((task: Task) => (task[byType] as string).toLowerCase().includes(txt.toLowerCase())))
   }
 
   const onTaskCreate = (data: Omit<Task, "id">): void => {
     console.log(data)
   }
+
+  useEffect(() => {
+    async function fetchTasks() {
+      const tasks = await getTasks()
+
+      setTasks(tasks)
+      setTasksToPresent(tasks)
+    }
+
+    fetchTasks()
+  }, [])
 
   return (
     <>
@@ -69,7 +83,7 @@ const TasksSection: FC<TasksProps> = ({}) => {
         <SearchInput onInputChange={onSearchChange} />
         <TaskCreate onCreate={onTaskCreate} />
       </TableAdjustments>
-      <StyledTable dataSource={dataSource} columns={columns as any} pagination={{ pageSize: 8 }} />
+      <StyledTable dataSource={tasksToPresent} columns={columns as any} pagination={{ pageSize: 8 }} />
     </>
   )
 }
