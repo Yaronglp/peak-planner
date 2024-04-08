@@ -4,9 +4,21 @@ import { TableAdjustments, StyledTable } from "./styles"
 import { TASKS } from "./mock"
 import TaskCreate from "./TaskCreate/TaskCreate"
 import TaskEdit from "./TaskEdit/TaskEdit"
-import { Task } from "./TasksSection.types"
-import { TableColumnsType } from "antd"
+import { Priority, Status, Task } from "./TasksSection.types"
+import { TableColumnsType, Tag } from "antd"
 import SearchInput from "./SearchInput/SearchInput"
+
+const STATUS_TO_COLOR_MAP = {
+  [Status.TODO]: "#7FC7D9",
+  [Status.IN_PROGRESS]: "#9195F6",
+  [Status.COMPLETED]: "#4CCD99",
+}
+
+const PRIORITY_TO_COLOR_MAP = {
+  [Priority.LOW]: "#378CE7",
+  [Priority.MEDIUM]: "#FFC94A",
+  [Priority.HIGH]: "#D04848",
+}
 
 const dataSource = [...TASKS]
 const columns: TableColumnsType<Task> = [
@@ -24,11 +36,13 @@ const columns: TableColumnsType<Task> = [
     title: "Priority",
     dataIndex: "priority",
     key: "priority",
+    render: (priority: Priority) => <Tag color={PRIORITY_TO_COLOR_MAP[priority]}>{priority}</Tag>,
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
+    render: (status: Status) => <Tag color={STATUS_TO_COLOR_MAP[status]}>{status}</Tag>,
   },
   {
     title: "Actions",
@@ -55,7 +69,7 @@ const TasksSection: FC<TasksProps> = ({}) => {
         <SearchInput onInputChange={onSearchChange} />
         <TaskCreate onCreate={onTaskCreate} />
       </TableAdjustments>
-      <StyledTable dataSource={dataSource} columns={columns as any} />
+      <StyledTable dataSource={dataSource} columns={columns as any} pagination={{ pageSize: 8 }} />
     </>
   )
 }
