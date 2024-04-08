@@ -1,13 +1,15 @@
+import { Task } from "../features/TasksSection/TasksSection.types"
+
 const API_URL = "http://localhost:3001"
 
 const enum Method {
-  GET = "get",
-  POST = "post",
-  PUT = "put",
-  DELETE = "delete",
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
 }
 
-export const getAllTasks = async () => {
+export const getTasks = async () => {
   try {
     const response = await fetch(`${API_URL}/tasks`)
 
@@ -23,8 +25,64 @@ export const getAllTasks = async () => {
   }
 }
 
-export const saveTask = async () => {}
+export const createTask = async (task: Omit<Task, "id">) => {
+  const options = {
+    method: Method.POST,
+    body: JSON.stringify(task),
+  }
 
-export const editTask = async () => {}
+  try {
+    const response = await fetch(`${API_URL}/tasks`, options)
 
-export const deleteTask = async () => {}
+    if (!response.ok) {
+      throw Error(`API: create task error.\nStatus: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      console.error(`Something went wrong while create new task.\n${e.message}`)
+    }
+  }
+}
+
+export const editTask = async (task: Omit<Task, "id">) => {
+  const options = {
+    method: Method.PUT,
+    body: JSON.stringify(task),
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/tasks`, options)
+
+    if (!response.ok) {
+      throw Error(`API: update task error.\nStatus: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      console.error(`Something went wrong while update an existing task.\n${e.message}`)
+    }
+  }
+}
+
+export const deleteTask = async () => {
+  const options = {
+    method: Method.DELETE,
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/tasks`, options)
+
+    if (!response.ok) {
+      throw Error(`API: delete task error.\nStatus: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      console.error(`Something went wrong while delete a task.\n${e.message}`)
+    }
+  }
+}
