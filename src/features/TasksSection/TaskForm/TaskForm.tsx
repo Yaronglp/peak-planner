@@ -29,7 +29,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: {
+    values: {
       title: task?.title || "",
       description: task?.description || "",
       priority: task?.priority || Priority.LOW,
