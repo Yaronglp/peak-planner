@@ -4,4 +4,5 @@ export const StyledMain = styled.main`
   padding-top: var(--head-spacer);
   width: 80%;
   margin: 0 auto;
+  height: calc(100vh - var(--head-spacer));
 `

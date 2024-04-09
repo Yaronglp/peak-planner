@@ -14,7 +14,7 @@ const TasksSection: FC<TasksProps> = ({}) => {
   const [tasksToPresent, setTasksToPresent] = useState<Task[]>([])
 
   const onSearchChange = (txt: string, byType: keyof Task) => {
-    // There is a casting to string as the byType is supporting only string types currently
+    // Casting to string as the byType is supporting only string types currently
     setTasksToPresent(tasks.filter((task: Task) => (task[byType] as string).toLowerCase().includes(txt.toLowerCase())))
   }
 
