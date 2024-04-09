@@ -24,23 +24,31 @@ const SearchInput: FC<SearchInputProps> = ({ onInputChange }) => {
   const [type, setType] = useState<keyof Pick<Task, "title" | "description">>(
     searchByOptions[0].value as keyof Pick<Task, "title" | "description">,
   )
+  const [inputVal, setInputVal] = useState("")
 
   const onSelectChange = (type: keyof Pick<Task, "title" | "description">) => {
     setType(type)
+    onInputChange && onInputChange(inputVal, type)
   }
 
   const selectAfter = (
     <Select options={searchByOptions} defaultValue={searchByOptions[0].value} onSelectChange={onSelectChange} />
   )
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
+    setInputVal(value)
     onInputChange && onInputChange(value, type)
   }
 
   return (
     <>
-      <Input addonAfter={selectAfter} onChange={debounce(onChange)} placeHolder="Search Tasks..." isClear={true} />
+      <Input
+        addonAfter={selectAfter}
+        onChange={debounce(onSearchInputChange)}
+        placeHolder="Search Tasks..."
+        isClear={true}
+      />
     </>
   )
 }
