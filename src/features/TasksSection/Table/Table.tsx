@@ -24,6 +24,7 @@ const columns: TableColumnsType<Task> = [
     title: "Title",
     dataIndex: "title",
     key: "title",
+    width: "20%",
   },
   {
     title: "Description",
@@ -34,18 +35,21 @@ const columns: TableColumnsType<Task> = [
     title: "Priority",
     dataIndex: "priority",
     key: "priority",
+    width: "10%",
     render: (priority: Priority) => <Tag color={PRIORITY_TO_COLOR_MAP[priority]}>{priority}</Tag>,
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
+    width: "10%",
     render: (status: Status) => <Tag color={STATUS_TO_COLOR_MAP[status]}>{status}</Tag>,
   },
   {
     title: "Actions",
     dataIndex: "Actions",
     key: "Actions",
+    width: "12%",
     render: (text: string, record: Task) => (
       <StyledActions>
         <TaskEdit task={record} />
@@ -66,7 +70,7 @@ export interface TableProps extends PPCustomAttributes, PPAccessibility {
 }
 
 const Table: FC<TableProps> = ({ tasks }) => {
-  return <StyledTable dataSource={tasks} columns={columns as any} pagination={{ pageSize: 8 }} />
+  return <StyledTable rowKey="id" dataSource={tasks} columns={columns as any} pagination={{ pageSize: 8 }} />
 }
 
 export default Table

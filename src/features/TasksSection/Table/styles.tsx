@@ -10,5 +10,5 @@ export const StyledTable = styled(Table)`
 
 export const StyledActions = styled.div`
   ${cssFlexCenter};
-  justify-content: space-around;
+  justify-content: space-between;
 `
