@@ -1,46 +1,31 @@
-import { JSONObject, Transitions } from "./types"
-import { isEmptyObject } from "./utils"
+import { Transitions } from "./types"
 
-export class Machine<S, TransitionsType extends Transitions<S>> {
-  #state: keyof S
-  #transitions: TransitionsType
+export class Machine {
+  #state: string
+  #transitions: Transitions
 
-  constructor(initialState: keyof S, transitions: TransitionsType) {
+  constructor(initialState: string, transitions: Transitions) {
     this.#state = initialState
     this.#transitions = transitions
   }
 
-  changeState(newState: keyof S): void {
-    if (isEmptyObject(this.#transitions)) {
+  transition(event: string) {
+    const currentTransition = this.#transitions[event]
+
+    if (!currentTransition) {
+      throw new Error("Event doe's not exists")
+    }
+
+    const targetState = currentTransition[event].target
+
+    if (!targetState) {
       return
     }
 
-    // We are assuming the feature allows to assign new state only if the state exists on the transitions
-    if (this.#transitions[newState]) {
-      this.#state = newState
-    }
+    this.#state = targetState
   }
 
-  dispatch(actionName: keyof TransitionsType[keyof S], payload: JSONObject): void {
-    const transitionActions = this.#transitions[this.getState()]
-    const stateInStr = this.getState().toString()
-
-    if (isEmptyObject(transitionActions as unknown as JSONObject)) {
-      console.warn(`No actions defined for '${stateInStr}'-state`)
-      return
-    }
-
-    const actionFN = transitionActions![actionName]
-
-    if (typeof actionFN === "function") {
-      actionFN(payload)
-    } else {
-      console.warn(`Action '${actionName.toString()}' was not found in '${stateInStr}'-state`)
-      return
-    }
-  }
-
-  getState(): keyof S {
+  getState(): string {
     return this.#state
   }
 }

@@ -50,13 +50,6 @@
       "status": "Todo"
     },
     {
-      "id": "3d80",
-      "title": "lolol",
-      "description": "wow",
-      "priority": "Low",
-      "status": "Todo"
-    },
-    {
       "id": "bf8f",
       "title": "this is test",
       "description": "tsd",
@@ -67,6 +60,20 @@
       "id": "e523",
       "title": "hdhfd",
       "description": "fgfdgdfgd",
+      "priority": "Low",
+      "status": "Todo"
+    },
+    {
+      "id": "823f",
+      "title": "this is a test",
+      "description": "wow it is amazing",
+      "priority": "Medium",
+      "status": "Completed"
+    },
+    {
+      "id": "7bd2",
+      "title": "schedule wow it is so important to do tests and other stuff around",
+      "description": "wow",
       "priority": "Low",
       "status": "Todo"
     }

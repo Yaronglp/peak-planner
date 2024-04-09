@@ -1,11 +1,9 @@
-export type JSONObject<T = any> = {
-  [key: string]: T
+export interface Transition {
+  [key: string]: {
+    target: string
+  }
 }
 
-export type ActionFN<TPayload = JSONObject> = (payload: TPayload) => void
-
-export type Transitions<S = any, T = JSONObject> = {
-  [stateName in keyof S]?: {
-    [actionName: string]: ActionFN<T>
-  }
+export interface Transitions {
+  [key: string]: Transition
 }
