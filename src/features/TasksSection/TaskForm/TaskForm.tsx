@@ -92,7 +92,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         render={({ field }) => (
           <Select
             controlProp={field}
-            label={{ text: "Priority" }}
+            label={{ text: "Status" }}
             options={StatusOptions}
             defaultValue={Status.TODO}
             error={errors.status && { text: "This field is required" }}

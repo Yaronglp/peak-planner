@@ -1,67 +1,11 @@
 import { FC, useEffect, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../common/types"
-import { TableAdjustments, StyledTable, StyledActions } from "./styles"
+import { TableAdjustments } from "./styles"
 import TaskCreate from "./TaskCreate/TaskCreate"
-import TaskEdit from "./TaskEdit/TaskEdit"
-import { Priority, Status, Task } from "./TasksSection.types"
-import { TableColumnsType, Tag } from "antd"
+import { Task } from "./TasksSection.types"
 import SearchInput from "./SearchInput/SearchInput"
-import { createTask, deleteTask, getTasks } from "../../services/api"
-import Button from "../../common/components/Button/Button"
-
-const STATUS_TO_COLOR_MAP = {
-  [Status.TODO]: "#7FC7D9",
-  [Status.IN_PROGRESS]: "#9195F6",
-  [Status.COMPLETED]: "#4CCD99",
-}
-
-const PRIORITY_TO_COLOR_MAP = {
-  [Priority.LOW]: "#378CE7",
-  [Priority.MEDIUM]: "#FFC94A",
-  [Priority.HIGH]: "#D04848",
-}
-
-const columns: TableColumnsType<Task> = [
-  {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
-  },
-  {
-    title: "Priority",
-    dataIndex: "priority",
-    key: "priority",
-    render: (priority: Priority) => <Tag color={PRIORITY_TO_COLOR_MAP[priority]}>{priority}</Tag>,
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    render: (status: Status) => <Tag color={STATUS_TO_COLOR_MAP[status]}>{status}</Tag>,
-  },
-  {
-    title: "Actions",
-    dataIndex: "Actions",
-    key: "Actions",
-    render: (text: string, record: Task) => (
-      <StyledActions>
-        <TaskEdit task={record} />
-        <Button
-          label="Delete"
-          onClick={async (e) => {
-            const deletedItem: Task = await deleteTask(record.id)
-            console.warn(`${deletedItem.title} was deleted.`)
-          }}
-        />
-      </StyledActions>
-    ),
-  },
-]
+import { createTask, getTasks } from "../../services/api"
+import Table from "./Table/Table"
 
 export interface TasksProps extends PPCustomAttributes, PPAccessibility {}
 
@@ -98,7 +42,7 @@ const TasksSection: FC<TasksProps> = ({}) => {
         <SearchInput onInputChange={onSearchChange} />
         <TaskCreate onCreate={onTaskCreate} />
       </TableAdjustments>
-      <StyledTable dataSource={tasksToPresent} columns={columns as any} pagination={{ pageSize: 8 }} />
+      <Table tasks={tasksToPresent} />
     </>
   )
 }
