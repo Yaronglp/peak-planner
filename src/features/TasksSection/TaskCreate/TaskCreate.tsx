@@ -18,6 +18,7 @@ const TaskCreate: FC<TaskCreateProps> = ({ onCreate }) => {
 
   const onSubmitHandler = (data: Omit<Task, "id">): void => {
     onCreate(data)
+    setIsModalOpen(false)
   }
 
   return (

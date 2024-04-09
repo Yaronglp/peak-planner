@@ -46,14 +46,14 @@ export const createTask = async (task: Omit<Task, "id">) => {
   }
 }
 
-export const editTask = async (task: Omit<Task, "id">) => {
+export const editTask = async (task: Task) => {
   const options = {
     method: Method.PUT,
     body: JSON.stringify(task),
   }
 
   try {
-    const response = await fetch(`${API_URL}/tasks`, options)
+    const response = await fetch(`${API_URL}/tasks/${task.id}`, options)
 
     if (!response.ok) {
       throw Error(`API: update task error.\nStatus: ${response.status}`)

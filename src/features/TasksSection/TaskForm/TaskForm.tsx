@@ -8,7 +8,7 @@ import { StyledForm } from "./styles"
 import Select from "../../../common/components/Select/Select"
 
 export interface FormProps extends PPCustomAttributes, PPAccessibility {
-  onSubmit: (data: Omit<Task, "id">) => void
+  onSubmit: (data: Omit<Task, "id"> & { id?: string }) => void
   task?: Task
 }
 
@@ -37,12 +37,10 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
     },
   })
 
-  // TODO: handle reset functionality on exit
-
   return (
     <StyledForm
       onSubmit={handleSubmit((data) => {
-        onSubmit(data as Omit<Task, "id">)
+        onSubmit(data)
         reset()
       })}>
       <Controller
