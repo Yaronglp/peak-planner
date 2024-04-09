@@ -1,11 +1,11 @@
 import { FC } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import { Priority, Status, Task } from "../TasksSection.types"
-import { StyledActions, StyledTable } from "./styles"
+import { StyledActions } from "./styles"
 import TaskEdit from "../TaskEdit/TaskEdit"
 import Button from "../../../common/components/Button/Button"
 import { deleteTask } from "../../../services/api"
-import { TableColumnsType, Tag } from "antd"
+import { Table as TableAntD, TableColumnsType, Tag } from "antd"
 
 const STATUS_TO_COLOR_MAP = {
   [Status.TODO]: "#7FC7D9",
@@ -70,7 +70,7 @@ export interface TableProps extends PPCustomAttributes, PPAccessibility {
 }
 
 const Table: FC<TableProps> = ({ tasks }) => {
-  return <StyledTable rowKey="id" dataSource={tasks} columns={columns as any} pagination={{ pageSize: 8 }} />
+  return <TableAntD rowKey="id" dataSource={tasks} columns={columns as any} pagination={{ pageSize: 8 }} bordered />
 }
 
 export default Table

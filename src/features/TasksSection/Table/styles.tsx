@@ -1,12 +1,5 @@
 import styled from "styled-components"
-import { cssBoxShadow, cssFlexCenter } from "../../../common/styles"
-import { Table } from "antd"
-
-export const StyledTable = styled(Table)`
-  width: 80vw;
-  margin: 0 auto;
-  ${cssBoxShadow};
-`
+import { cssFlexCenter } from "../../../common/styles"
 
 export const StyledActions = styled.div`
   ${cssFlexCenter};
