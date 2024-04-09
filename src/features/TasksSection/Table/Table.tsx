@@ -1,17 +1,11 @@
 import { FC } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
-import { Priority, Status, Task } from "../TasksSection.types"
+import { Priority, Task } from "../TasksSection.types"
 import { StyledActions } from "./styles"
 import TaskEdit from "../TaskEdit/TaskEdit"
 import Button from "../../../common/components/Button/Button"
 import { deleteTask } from "../../../services/api"
 import { Table as TableAntD, TableColumnsType, Tag } from "antd"
-
-const STATUS_TO_COLOR_MAP = {
-  [Status.TODO]: "#7FC7D9",
-  [Status.IN_PROGRESS]: "#9195F6",
-  [Status.COMPLETED]: "#4CCD99",
-}
 
 const PRIORITY_TO_COLOR_MAP = {
   [Priority.LOW]: "#378CE7",
@@ -24,7 +18,8 @@ const columns: TableColumnsType<Task> = [
     title: "Title",
     dataIndex: "title",
     key: "title",
-    width: "20%",
+    fixed: "left",
+    width: "18rem",
   },
   {
     title: "Description",
@@ -35,21 +30,21 @@ const columns: TableColumnsType<Task> = [
     title: "Priority",
     dataIndex: "priority",
     key: "priority",
-    width: "10%",
+    width: "8rem",
     render: (priority: Priority) => <Tag color={PRIORITY_TO_COLOR_MAP[priority]}>{priority}</Tag>,
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
-    width: "10%",
-    render: (status: Status) => <Tag color={STATUS_TO_COLOR_MAP[status]}>{status}</Tag>,
+    width: "10rem",
   },
   {
     title: "Actions",
     dataIndex: "Actions",
     key: "Actions",
-    width: "12%",
+    fixed: "right",
+    width: "11rem",
     render: (text: string, record: Task) => (
       <StyledActions>
         <TaskEdit task={record} />
@@ -70,7 +65,16 @@ export interface TableProps extends PPCustomAttributes, PPAccessibility {
 }
 
 const Table: FC<TableProps> = ({ tasks }) => {
-  return <TableAntD rowKey="id" dataSource={tasks} columns={columns as any} pagination={{ pageSize: 8 }} bordered />
+  return (
+    <TableAntD
+      rowKey="id"
+      dataSource={tasks}
+      columns={columns as any}
+      pagination={{ pageSize: 8 }}
+      bordered
+      scroll={{ x: "max-content" }}
+    />
+  )
 }
 
 export default Table
