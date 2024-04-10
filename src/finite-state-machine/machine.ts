@@ -6,20 +6,10 @@ export class Machine {
 
   constructor(initialState: string, transitions: Transitions) {
     this.#transitions = transitions
-    this.#setState(initialState)
+    this.#state = initialState
   }
 
-  #setState(state: string) {
-    const currentTransition = this.#transitions[state]
-
-    if (!currentTransition) {
-      throw new Error("Transition or State does not exists")
-    }
-
-    this.#state = state
-  }
-
-  transition(event: string) {
+  transition(event: string): string {
     const currentTransitionEvent = this.#transitions[this.#state][event]
 
     if (!currentTransitionEvent) {
@@ -27,12 +17,15 @@ export class Machine {
     }
 
     const targetState = currentTransitionEvent.target
+    const targetTransition = this.#transitions[targetState]
 
-    if (!targetState) {
-      return
+    if (!targetTransition) {
+      throw new Error("Transition does not exists")
     }
 
-    this.#setState(targetState)
+    this.#state = targetState
+
+    return this.getState()
   }
 
   getState(): string {

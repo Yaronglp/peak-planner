@@ -15,6 +15,7 @@ const EVENTS = {
 
 describe("Machine", () => {
   let transitions: Transitions
+  let machine: Machine
 
   beforeAll(() => {
     transitions = {
@@ -52,8 +53,16 @@ describe("Machine", () => {
     expect(machine.getState()).toBe(STATES.FAILURE)
   })
 
+  it("State status return from transition call", () => {
+    const machine = new Machine(STATES.INIT, transitions)
+
+    expect(machine.transition(EVENTS.SWITCH)).toBe(STATES.FETCH)
+  })
+
   it("Throws an error for an invalid transition", () => {
-    expect(() => new Machine(STATES.IDLE, transitions)).toThrow("Transition or State does not exists")
+    const machine = new Machine(STATES.FAILURE, transitions)
+
+    expect(() => machine.transition(EVENTS.SWITCH)).toThrow("Transition does not exists")
   })
 
   it("Throws an error for an invalid event", () => {
