@@ -11,11 +11,11 @@ const STATES = {
 const EVENTS = {
   SWITCH: "switch",
   FAILURE: "failure",
+  SUCCESS: "success",
 } as const
 
 describe("Machine", () => {
   let transitions: Transitions
-  let machine: Machine
 
   beforeAll(() => {
     transitions = {
@@ -59,17 +59,23 @@ describe("Machine", () => {
     expect(machine.transition(EVENTS.SWITCH)).toBe(STATES.FETCH)
   })
 
-  it("Throws an error for an invalid transition", () => {
+  it("Log a warning about an invalid transition and return prev state", () => {
     const machine = new Machine(STATES.FAILURE, transitions)
+    const warnSpy = jest.spyOn(console, "warn")
+    const result = machine.transition(EVENTS.SWITCH)
 
-    expect(() => machine.transition(EVENTS.SWITCH)).toThrow("Transition does not exists")
+    expect(warnSpy).toHaveBeenCalledWith(`Transition '${STATES.IDLE}' does not exists on State '${machine.getState()}'`)
+
+    expect(result).toEqual(STATES.FAILURE)
   })
 
-  it("Throws an error for an invalid event", () => {
-    const machine = new Machine(STATES.INIT, transitions)
+  it("Log a warning for an invalid event and return prev state", () => {
+    const machine = new Machine(STATES.FAILURE, transitions)
+    const warnSpy = jest.spyOn(console, "warn")
+    const result = machine.transition("INVALID_EVENT")
 
-    expect(() => {
-      machine.transition("INVALID_EVENT")
-    }).toThrow("Event does not exists")
+    expect(warnSpy).toHaveBeenCalledWith(`Event '${"INVALID_EVENT"}' does not exists on State '${machine.getState()}'`)
+
+    expect(result).toEqual(STATES.FAILURE)
   })
 })

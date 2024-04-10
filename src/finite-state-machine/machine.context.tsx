@@ -10,7 +10,7 @@ interface FSMContext {
 }
 
 const INITIAL_STATE: FSMContext = {
-  machineState: "Init",
+  machineState: "init",
   updateMachineState: (state: string) => {
     state
   },

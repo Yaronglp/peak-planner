@@ -13,14 +13,16 @@ export class Machine {
     const currentTransitionEvent = this.#transitions[this.#state][event]
 
     if (!currentTransitionEvent) {
-      throw new Error("Event does not exists")
+      console.warn(`Event '${event}' does not exists on State '${this.#state}'`)
+      return this.getState()
     }
 
     const targetState = currentTransitionEvent.target
     const targetTransition = this.#transitions[targetState]
 
     if (!targetTransition) {
-      throw new Error("Transition does not exists")
+      console.warn(`Transition '${targetState}' does not exists on State '${this.#state}'`)
+      return this.getState()
     }
 
     this.#state = targetState
