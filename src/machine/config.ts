@@ -1,4 +1,4 @@
-import { Machine, Transitions } from "./finite-state-machine"
+import { Machine, Transitions } from "../finite-state-machine"
 
 export const STATES = {
   INIT: "init",

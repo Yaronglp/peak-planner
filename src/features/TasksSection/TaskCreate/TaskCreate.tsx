@@ -28,7 +28,7 @@ const TaskCreate: FC<TaskCreateProps> = ({ onCreate }) => {
         isOpen={isModalOpen}
         title="Create New Task"
         footer={null}
-        onCancelClick={(cb: any) => setIsModalOpen((open) => !open)}>
+        onCancelClick={() => setIsModalOpen((open) => !open)}>
         <TaskForm onSubmit={onSubmitHandler} />
       </Modal>
     </>

@@ -4,7 +4,6 @@ import { Priority, Task } from "../TasksSection.types"
 import { StyledActions } from "./styles"
 import TaskEdit from "../TaskEdit/TaskEdit"
 import Button from "../../../common/components/Button/Button"
-import { deleteTask } from "../../../services/api"
 import { Table as TableAntD, TableColumnsType, Tag } from "antd"
 
 const PRIORITY_TO_COLOR_MAP = {
