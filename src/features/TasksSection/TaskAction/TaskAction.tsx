@@ -23,7 +23,7 @@ const TaskAction: FC<TaskActionProps> = ({ onSave, task }) => {
   }
 
   const buttonLabel = task ? "Edit" : "Create New Task"
-  console.log(machineState)
+
   return (
     <>
       <Button label={buttonLabel} onClick={() => setIsModalOpen((modal) => !modal)} />
