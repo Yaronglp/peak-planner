@@ -26,11 +26,12 @@ const TaskAction: FC<TaskActionProps> = ({ onSave, task }) => {
 
   return (
     <>
-      <Button label={buttonLabel} onClick={() => setIsModalOpen((modal) => !modal)} />
+      <Button label={buttonLabel} onClick={() => setIsModalOpen((isOpen) => !isOpen)} />
       <Modal
         isOpen={isModalOpen}
         title={task ? `Edit '${task.title}'` : "Create New Task"}
         footer={null}
+        destroyOnClose={true}
         onCancelClick={() => setIsModalOpen((open) => !open)}>
         {machineState === STATES.FAILURE_ACTION_TASK && (
           <AlertMessage message="Error saving task." type={AlertMessage.Type.ERROR} />
