@@ -2,9 +2,9 @@ import { FC, useMemo } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import { Priority, Task } from "../TasksSection.types"
 import { StyledActions } from "./styles"
-import TaskEdit from "../TaskEdit/TaskEdit"
 import Button from "../../../common/components/Button/Button"
 import { Table as TableAntD, TableColumnsType, Tag } from "antd"
+import TaskAction from "../TaskAction/TaskAction"
 
 const PRIORITY_TO_COLOR_MAP = {
   [Priority.LOW]: "#378CE7",
@@ -12,7 +12,10 @@ const PRIORITY_TO_COLOR_MAP = {
   [Priority.HIGH]: "#D04848",
 }
 
-const getColumns = (editHandler: (data: Task) => void, onDelete: (id: string) => void): TableColumnsType<Task> => [
+const getColumns = (
+  editHandler: (data: Omit<Task, "id"> & { id?: string }) => Promise<void>,
+  onDelete: (id: string) => Promise<void>,
+): TableColumnsType<Task> => [
   {
     title: "Title",
     dataIndex: "title",
@@ -46,7 +49,7 @@ const getColumns = (editHandler: (data: Task) => void, onDelete: (id: string) =>
     width: "11rem",
     render: (text: string, record: Task) => (
       <StyledActions>
-        <TaskEdit task={record} onEdit={editHandler} />
+        <TaskAction task={record} onSave={editHandler} />
         <Button
           label="Delete"
           onClick={async (e) => {
@@ -60,8 +63,8 @@ const getColumns = (editHandler: (data: Task) => void, onDelete: (id: string) =>
 
 export interface TableProps extends PPCustomAttributes, PPAccessibility {
   tasks: Task[]
-  onEdit: (data: Task) => void
-  onDelete: (id: string) => void
+  onEdit: (data: Omit<Task, "id"> & { id?: string }) => Promise<void>
+  onDelete: (id: string) => Promise<void>
 }
 
 const Table: FC<TableProps> = ({ tasks, onEdit, onDelete }) => {

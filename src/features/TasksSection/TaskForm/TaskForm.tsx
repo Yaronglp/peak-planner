@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useContext, useEffect } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../../common/types"
 import { useForm, Controller } from "react-hook-form"
 import { Priority, Status, Task } from "../TasksSection.types"
@@ -6,9 +6,11 @@ import Input from "../../../common/components/Input/Input"
 import Button from "../../../common/components/Button/Button"
 import { StyledForm } from "./styles"
 import Select from "../../../common/components/Select/Select"
+import { FSMContext } from "../../../finite-state-machine"
+import { EVENTS, FSMachine, STATES } from "../../../machine/config"
 
 export interface FormProps extends PPCustomAttributes, PPAccessibility {
-  onSubmit: (data: Omit<Task, "id"> & { id?: string }) => void
+  onSubmit: (data: Omit<Task, "id"> & { id?: string }) => Promise<void>
   task?: Task
 }
 
@@ -28,6 +30,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
     handleSubmit,
     reset,
     formState: { errors },
+    getValues,
   } = useForm({
     values: {
       title: task?.title || "",
@@ -36,12 +39,41 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
       status: task?.status || Status.TODO,
     },
   })
+  const { machineState, updateMachineState } = useContext(FSMContext)
+
+  useEffect(() => {
+    async function submitData(taskData: Task) {
+      try {
+        await onSubmit(taskData)
+        reset()
+        updateMachineState(FSMachine.transition(EVENTS.RESOLVE))
+      } catch (e) {
+        updateMachineState(FSMachine.transition(EVENTS.REJECT))
+      }
+    }
+
+    if (machineState === STATES.TRIGGER_ACTION_TASK) {
+      const taskData = getValues() as Task
+
+      if (task) {
+        taskData.id = task.id
+      }
+      submitData(taskData)
+    }
+
+    let timer: NodeJS.Timeout
+    if (machineState === STATES.FAILURE_ACTION_TASK) {
+      timer = setTimeout(() => {
+        updateMachineState(FSMachine.transition(EVENTS.CANCEL))
+      }, 3000)
+    }
+    return () => clearTimeout(timer)
+  }, [machineState, getValues])
 
   return (
     <StyledForm
-      onSubmit={handleSubmit((data) => {
-        onSubmit(data)
-        reset()
+      onSubmit={handleSubmit(() => {
+        updateMachineState(FSMachine.transition(EVENTS.EDIT))
       })}>
       <Controller
         name="title"

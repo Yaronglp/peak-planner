@@ -1,17 +1,40 @@
-import { FC, useCallback, useEffect, useState } from "react"
+import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { PPAccessibility, PPCustomAttributes } from "../../common/types"
-import { TableAdjustments } from "./styles"
-import TaskCreate from "./TaskCreate/TaskCreate"
+import { StyledError, TableAdjustments } from "./styles"
 import { Task } from "./TasksSection.types"
 import SearchInput from "./SearchInput/SearchInput"
 import { createTask, deleteTask, editTask, getTasks } from "../../services/api"
 import Table from "./Table/Table"
+import { EVENTS, FSMachine, STATES } from "../../machine/config"
+import Spinner from "../../common/components/Spinner/Spinner"
+import { FSMContext } from "../../finite-state-machine"
+import TaskAction from "./TaskAction/TaskAction"
 
 export interface TasksProps extends PPCustomAttributes, PPAccessibility {}
 
 const TasksSection: FC<TasksProps> = ({}) => {
   const [tasks, setTasks] = useState<Task[]>([])
   const [tasksToPresent, setTasksToPresent] = useState<Task[]>([])
+  const { machineState, updateMachineState } = useContext(FSMContext)
+
+  useEffect(() => {
+    async function fetchTasks() {
+      if (FSMachine.getState() === STATES.INIT) {
+        updateMachineState(FSMachine.transition(EVENTS.SWITCH))
+      }
+      let tasks = []
+      try {
+        tasks = await getTasks()
+        updateMachineState(FSMachine.transition(EVENTS.RESOLVE))
+      } catch (e) {
+        updateMachineState(FSMachine.transition(EVENTS.REJECT))
+      }
+      setTasks(tasks)
+      setTasksToPresent(tasks)
+    }
+
+    fetchTasks()
+  }, [])
 
   const onSearchChange = (txt: string, byType: keyof Task) => {
     // Casting to string as the byType is supporting only string types currently
@@ -36,8 +59,8 @@ const TasksSection: FC<TasksProps> = ({}) => {
   )
 
   const onTaskEdit = useCallback(
-    async (taskData: Task) => {
-      const editedTask = await editTask(taskData)
+    async (taskData: Omit<Task, "id"> & { id?: string }) => {
+      const editedTask = await editTask(taskData as Task)
       const taskIndex = tasks.findIndex((task: Task) => task.id === editedTask.id)
       tasks.splice(taskIndex, 1, editedTask)
       updateTasks([...tasks])
@@ -47,32 +70,34 @@ const TasksSection: FC<TasksProps> = ({}) => {
 
   const onTaskDelete = useCallback(
     async (id: string) => {
-      const { id: taskID } = await deleteTask(id)
-      const taskIndex = tasks.findIndex((task: Task) => task.id === taskID)
-      tasks.splice(taskIndex, 1)
-      updateTasks([...tasks])
+      try {
+        updateMachineState(FSMachine.transition(EVENTS.DELETE))
+        const { id: taskID } = await deleteTask(id)
+        const taskIndex = tasks.findIndex((task: Task) => task.id === taskID)
+        tasks.splice(taskIndex, 1)
+        updateTasks([...tasks])
+        updateMachineState(FSMachine.transition(EVENTS.RESOLVE))
+      } catch (e) {
+        updateMachineState(FSMachine.transition(EVENTS.REJECT))
+      }
     },
     [tasks],
   )
 
-  useEffect(() => {
-    async function fetchTasks() {
-      const tasks = await getTasks()
-
-      setTasks(tasks)
-      setTasksToPresent(tasks)
-    }
-
-    fetchTasks()
-  }, [])
-
   return (
     <>
-      <TableAdjustments>
-        <SearchInput onInputChange={onSearchChange} />
-        <TaskCreate onCreate={onTaskCreate} />
-      </TableAdjustments>
-      <Table tasks={tasksToPresent} onEdit={onTaskEdit} onDelete={onTaskDelete} />
+      {machineState === STATES.FETCH && <Spinner />}
+      {/* // TODO: in failure action we can fetch latest LS data and save every step to there */}
+      {machineState === STATES.FAILURE_VIEW && <StyledError>Something went wrong, try again</StyledError>}
+      {machineState !== STATES.FETCH && machineState !== STATES.FAILURE_VIEW && (
+        <>
+          <TableAdjustments>
+            <SearchInput onInputChange={onSearchChange} />
+            <TaskAction onSave={onTaskCreate} />
+          </TableAdjustments>
+          <Table tasks={tasksToPresent} onEdit={onTaskEdit} onDelete={onTaskDelete} />
+        </>
+      )}
     </>
   )
 }
