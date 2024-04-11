@@ -14,3 +14,10 @@ export const cssErrorLabel = css`
   color: var(--red);
   font-weight: bold;
 `
+
+export const cssCenterPosition = css`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
