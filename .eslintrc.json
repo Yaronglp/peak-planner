@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "plugin:cypress/recommended",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
@@ -22,6 +23,7 @@
         "prettier/prettier": "error",
         "react/react-in-jsx-scope": "off",
         "no-empty-pattern": ["error", { "allowObjectPatternsAsParameters": true }],
-        "@typescript-eslint/no-empty-function": "off"
+        "@typescript-eslint/no-empty-function": "off",
+        "cypress/no-unnecessary-waiting": "warn"
     }
 }

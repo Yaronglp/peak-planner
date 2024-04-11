@@ -98,10 +98,10 @@ const TasksSection: FC<TasksProps> = ({}) => {
       {machineState !== STATES.FETCH && machineState !== STATES.FAILURE_VIEW && (
         <>
           <TableAdjustments>
-            <SearchInput onInputChange={onSearchChange} />
+            <SearchInput data-test-id="search-input" onInputChange={onSearchChange} />
             <TaskAction onSave={onTaskCreate} />
           </TableAdjustments>
-          <Table tasks={tasksToPresent} onEdit={onTaskEdit} onDelete={onTaskDelete} />
+          <Table data-test-id="table-tasks" tasks={tasksToPresent} onEdit={onTaskEdit} onDelete={onTaskDelete} />
         </>
       )}
     </>

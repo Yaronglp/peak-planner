@@ -12,9 +12,15 @@ export interface ButtonProps extends PPCustomAttributes, PPAccessibility {
   onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-const Button: FC<ButtonProps> = ({ type = Type.BUTTON, label, "aria-label": ariaLabel = label, onClick }) => {
+const Button: FC<ButtonProps> = ({
+  type = Type.BUTTON,
+  label,
+  "aria-label": ariaLabel = label,
+  onClick,
+  "data-test-id": dataTestId,
+}) => {
   return (
-    <StyledButton aria-label={ariaLabel} onClick={onClick} htmlType={type}>
+    <StyledButton data-test-id={dataTestId} aria-label={ariaLabel} onClick={onClick} htmlType={type}>
       {label}
     </StyledButton>
   )

@@ -81,6 +81,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         rules={{ required: true }}
         render={({ field }) => (
           <Input
+            data-test-id="input-title-task"
             controlProp={field}
             label={{ text: "Title" }}
             placeHolder="title..."
@@ -94,6 +95,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         rules={{ required: true }}
         render={({ field }) => (
           <Input
+            data-test-id="input-description-task"
             controlProp={field}
             label={{ text: "Description" }}
             placeHolder="description..."
@@ -107,6 +109,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         rules={{ required: true }}
         render={({ field }) => (
           <Select
+            data-test-id="input-priority-task"
             controlProp={field}
             label={{ text: "Priority" }}
             options={PriorityOptions}
@@ -121,6 +124,7 @@ const TaskForm: FC<FormProps> = ({ task, onSubmit }) => {
         rules={{ required: true }}
         render={({ field }) => (
           <Select
+            data-test-id="input-status-task"
             controlProp={field}
             label={{ text: "Status" }}
             options={StatusOptions}

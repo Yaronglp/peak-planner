@@ -20,7 +20,7 @@ export interface SearchInputProps extends PPCustomAttributes, PPAccessibility {
   onInputChange?: (txt: string, type: keyof Task) => void
 }
 
-const SearchInput: FC<SearchInputProps> = ({ onInputChange }) => {
+const SearchInput: FC<SearchInputProps> = ({ onInputChange, "data-test-id": dataTestId }) => {
   const [type, setType] = useState<keyof Pick<Task, "title" | "description">>(
     searchByOptions[0].value as keyof Pick<Task, "title" | "description">,
   )
@@ -32,7 +32,12 @@ const SearchInput: FC<SearchInputProps> = ({ onInputChange }) => {
   }
 
   const selectAfter = (
-    <Select options={searchByOptions} defaultValue={searchByOptions[0].value} onSelectChange={onSelectChange} />
+    <Select
+      data-test-id="search-category"
+      options={searchByOptions}
+      defaultValue={searchByOptions[0].value}
+      onSelectChange={onSelectChange}
+    />
   )
 
   const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +49,7 @@ const SearchInput: FC<SearchInputProps> = ({ onInputChange }) => {
   return (
     <>
       <Input
+        data-test-id={dataTestId}
         addonAfter={selectAfter}
         onChange={debounce(onSearchInputChange)}
         placeHolder="Search Tasks..."

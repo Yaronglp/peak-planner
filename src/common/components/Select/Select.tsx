@@ -23,11 +23,25 @@ export interface SelectProps extends PPCustomAttributes, PPAccessibility {
   controlProp?: any
 }
 
-const Select: FC<SelectProps> = ({ options, defaultValue, label, error, onSelectChange, controlProp }) => {
+const Select: FC<SelectProps> = ({
+  options,
+  defaultValue,
+  label,
+  error,
+  onSelectChange,
+  controlProp,
+  "data-test-id": dataTestId,
+}) => {
   return (
     <div>
       {label && Object.keys(label).length > 0 && <StyledLabel>{label.text}</StyledLabel>}
-      <StyledSelect options={options} defaultValue={defaultValue} onSelect={onSelectChange} {...controlProp} />
+      <StyledSelect
+        data-test-id={dataTestId}
+        options={options}
+        defaultValue={defaultValue}
+        onSelect={onSelectChange}
+        {...controlProp}
+      />
       {error && Object.keys(error).length > 0 && <ErrorLabel>{error.text}</ErrorLabel>}
     </div>
   )
