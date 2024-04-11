@@ -93,7 +93,7 @@ const TasksSection: FC<TasksProps> = ({}) => {
   return (
     <>
       {machineState === STATES.FETCH && <Spinner />}
-      {/* // TODO: in failure action we can fetch latest LS data and save every step to there */}
+      {/* // In failure action we can fetch latest LS data and save every step to there */}
       {machineState === STATES.FAILURE_VIEW && <StyledError>Something went wrong, try again</StyledError>}
       {machineState !== STATES.FETCH && machineState !== STATES.FAILURE_VIEW && (
         <>

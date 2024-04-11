@@ -7,13 +7,20 @@ export interface ModalProps extends PPCustomAttributes, PPAccessibility {
   isOpen: boolean
   children: ReactNode
   onCancelClick: MouseEventHandler<HTMLButtonElement>
+  destroyOnClose?: boolean
   footer?: React.ReactNode
   onOKClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-const Modal: FC<ModalProps> = ({ isOpen, title, footer, children, onOKClick, onCancelClick }) => {
+const Modal: FC<ModalProps> = ({ isOpen, title, footer, children, destroyOnClose, onOKClick, onCancelClick }) => {
   return (
-    <ModalAntD open={isOpen} title={title} footer={footer} onOk={onOKClick} onCancel={onCancelClick}>
+    <ModalAntD
+      destroyOnClose={destroyOnClose}
+      open={isOpen}
+      title={title}
+      footer={footer}
+      onOk={onOKClick}
+      onCancel={onCancelClick}>
       {children}
     </ModalAntD>
   )
