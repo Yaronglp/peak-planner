@@ -5,10 +5,8 @@ export const STATES = {
   FETCH: "fetch",
   SUCCESS_VIEW: "success_view",
   FAILURE_VIEW: "failure_view",
-  CREATE_TASK: "create_task",
-  EDIT_TASK: "edit_task",
-  DELETE_TASK: "delete_task",
-  FAILURE_ACTION: "failure_action",
+  TRIGGER_ACTION_TASK: "trigger_action_task",
+  FAILURE_ACTION_TASK: "failure_action_task",
 } as const
 
 export const EVENTS = {
@@ -18,6 +16,8 @@ export const EVENTS = {
   CREATE: "create",
   DELETE: "delete",
   EDIT: "edit",
+  RETRY: "retry",
+  CANCEL: "cancel",
 } as const
 
 const transitions: Transitions = {
@@ -39,41 +39,32 @@ const transitions: Transitions = {
       target: STATES.SUCCESS_VIEW,
     },
     [EVENTS.CREATE]: {
-      target: STATES.CREATE_TASK,
+      target: STATES.TRIGGER_ACTION_TASK,
     },
     [EVENTS.EDIT]: {
-      target: STATES.EDIT_TASK,
+      target: STATES.TRIGGER_ACTION_TASK,
     },
     [EVENTS.DELETE]: {
-      target: STATES.DELETE_TASK,
+      target: STATES.TRIGGER_ACTION_TASK,
     },
   },
   [STATES.FAILURE_VIEW]: {},
-  [STATES.CREATE_TASK]: {
+  [STATES.TRIGGER_ACTION_TASK]: {
     [EVENTS.RESOLVE]: {
       target: STATES.SUCCESS_VIEW,
     },
     [EVENTS.REJECT]: {
-      target: STATES.FAILURE_ACTION,
+      target: STATES.FAILURE_ACTION_TASK,
     },
   },
-  [STATES.EDIT_TASK]: {
-    [EVENTS.RESOLVE]: {
+  [STATES.FAILURE_ACTION_TASK]: {
+    [EVENTS.RETRY]: {
+      target: STATES.TRIGGER_ACTION_TASK,
+    },
+    [EVENTS.CANCEL]: {
       target: STATES.SUCCESS_VIEW,
     },
-    [EVENTS.REJECT]: {
-      target: STATES.FAILURE_ACTION,
-    },
   },
-  [STATES.DELETE_TASK]: {
-    [EVENTS.RESOLVE]: {
-      target: STATES.SUCCESS_VIEW,
-    },
-    [EVENTS.REJECT]: {
-      target: STATES.FAILURE_ACTION,
-    },
-  },
-  [STATES.FAILURE_ACTION]: {},
 }
 
 export const FSMachine = new Machine(STATES.INIT, transitions)
