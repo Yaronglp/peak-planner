@@ -22,9 +22,15 @@ const TasksSection: FC<TasksProps> = ({}) => {
       if (FSMachine.getState() === STATES.INIT) {
         updateMachineState(FSMachine.transition(EVENTS.SWITCH))
       }
-      let tasks = []
+      let tasks: any
       try {
-        tasks = await getTasks()
+        // The promise and the 'any' type is only for the example of the timeout (for loader)
+        tasks = await new Promise((resolve) =>
+          setTimeout(async () => {
+            const tasks = await getTasks()
+            resolve(tasks)
+          }, 2000),
+        )
         updateMachineState(FSMachine.transition(EVENTS.RESOLVE))
       } catch (e) {
         updateMachineState(FSMachine.transition(EVENTS.REJECT))
