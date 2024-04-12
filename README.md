@@ -72,6 +72,9 @@ The build is minified and the filenames include the hashes.
 ### FSM structure:
 ![alt text](/assets/finite-state-machine.png)
 
+### Init flow:
+![alt text](/assets/finite-state-machine-init.png)
+
 ## Future tasks:
 ### Short run
 - [ ] Dialog for Deleting Tasks - Implement a confirmation dialog to verify if the user intends to delete a task.
