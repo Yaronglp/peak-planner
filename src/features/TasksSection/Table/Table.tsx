@@ -80,6 +80,7 @@ const Table: FC<TableProps> = ({ tasks, onEdit, onDelete, "data-test-id": dataTe
       pagination={{ pageSize: 8 }}
       bordered
       scroll={{ x: "max-content" }}
+      style={{ maxHeight: "75%", overflowY: "auto" }}
     />
   )
 }
