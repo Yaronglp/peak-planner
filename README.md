@@ -82,6 +82,7 @@ The build is minified and the filenames include the hashes.
 - [ ] Offline Capabilities with LocalStorage - Enable CRUD operations offline, saving changes to LocalStorage. Sync with the server once online.
 - [ ] Sortable Table Columns - Integrate column sorting functionality using the UI library.
 - [ ] Due Date for Tasks - Introduce a 'Due Date' property for tasks, implementing date handling functionality.
+- [ ] Error Component - enhance error message while action failed. 
 - [ ] Theme Customization - Allow users to choose a theme based on media preferences or saved settings.
 - [ ] Extract FSM into a different package.
 - [ ] Multi-Select Operations - Allow multiple tasks to be selected for bulk actions such as delete or priority change.
