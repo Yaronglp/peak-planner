@@ -10,6 +10,7 @@
      - [Components Overview](#components-overviewhigh-level)
      - [Component Structure](#component-structurehigh-level)
      - [FSM Structure](#fsm-structure)
+     - [FSM Init Flow](#init-flow)
 4. [Future Tasks](#future-tasks)
    - [Short Run](#short-run)
    - [Long Run](#long-run)
