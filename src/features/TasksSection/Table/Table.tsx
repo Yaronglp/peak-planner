@@ -51,7 +51,7 @@ const getColumns = (
       <StyledActions>
         <TaskAction task={record} onSave={editHandler} />
         <Button
-          data-test-id={`button-delete-${record.id}`}
+          data-testid={`button-delete-${record.id}`}
           label="Delete"
           onClick={async (e) => {
             onDelete(record.id)
@@ -68,13 +68,13 @@ export interface TableProps extends PPCustomAttributes, PPAccessibility {
   onDelete: (id: string) => Promise<void>
 }
 
-const Table: FC<TableProps> = ({ tasks, onEdit, onDelete, "data-test-id": dataTestId }) => {
+const Table: FC<TableProps> = ({ tasks, onEdit, onDelete, "data-testid": dataTestId }) => {
   const columns = useMemo(() => getColumns(onEdit, onDelete), [onEdit, onDelete])
 
   return (
     <TableAntD
       rowKey="id"
-      data-test-id={dataTestId}
+      data-testid={dataTestId}
       dataSource={tasks}
       columns={columns as any}
       pagination={{ pageSize: 8 }}

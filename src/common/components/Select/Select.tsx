@@ -30,13 +30,13 @@ const Select: FC<SelectProps> = ({
   error,
   onSelectChange,
   controlProp,
-  "data-test-id": dataTestId,
+  "data-testid": dataTestId,
 }) => {
   return (
     <div>
       {label && Object.keys(label).length > 0 && <StyledLabel>{label.text}</StyledLabel>}
       <StyledSelect
-        data-test-id={dataTestId}
+        data-testid={dataTestId}
         options={options}
         defaultValue={defaultValue}
         onSelect={onSelectChange}

@@ -1,5 +1,5 @@
 export interface PPCustomAttributes {
-  "data-test-id"?: string
+  "data-testid"?: string
 }
 
 export interface PPAccessibility {

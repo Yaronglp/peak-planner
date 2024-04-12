@@ -17,10 +17,10 @@ const Button: FC<ButtonProps> = ({
   label,
   "aria-label": ariaLabel = label,
   onClick,
-  "data-test-id": dataTestId,
+  "data-testid": dataTestId,
 }) => {
   return (
-    <StyledButton data-test-id={dataTestId} aria-label={ariaLabel} onClick={onClick} htmlType={type}>
+    <StyledButton data-testid={dataTestId} aria-label={ariaLabel} onClick={onClick} htmlType={type}>
       {label}
     </StyledButton>
   )

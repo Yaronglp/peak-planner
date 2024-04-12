@@ -37,7 +37,7 @@ const Input: FC<InputProps> = ({
   isClear,
   controlProp,
   onChange,
-  "data-test-id": dataTestId,
+  "data-testid": dataTestId,
 }) => {
   return (
     <div>
@@ -48,7 +48,7 @@ const Input: FC<InputProps> = ({
         required={isRequired}
         addonAfter={addonAfter}
         allowClear={isClear}
-        data-test-id={dataTestId}
+        data-testid={dataTestId}
         {...controlProp}
       />
       {error && Object.keys(error).length > 0 && <ErrorLabel>{error.text}</ErrorLabel>}
