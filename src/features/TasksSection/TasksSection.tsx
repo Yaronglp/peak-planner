@@ -25,10 +25,14 @@ const TasksSection: FC<TasksProps> = ({}) => {
       let tasks: any
       try {
         // The promise and the 'any' type is only for the example of the timeout (for loader)
-        tasks = await new Promise((resolve) =>
+        tasks = await new Promise((resolve, reject) =>
           setTimeout(async () => {
-            const tasks = await getTasks()
-            resolve(tasks)
+            try {
+              const tasks = await getTasks()
+              resolve(tasks)
+            } catch (e) {
+              reject(e)
+            }
           }, 2000),
         )
         updateMachineState(FSMachine.transition(EVENTS.RESOLVE))
