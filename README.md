@@ -23,7 +23,7 @@ The application is using a finite state machine (FSM) for seamless state transit
 
 ### Setup:
 
-1. Clone the repository: ```git clone https://your-repository-url```
+1. Clone the repository
 2. Run the right node version\
   2.1. Using nvm, run ```nvm use``` to switch to the node version required for the project.\
   2.2  Else, verify you are running the node version specified in the ```.nvmrc```.
